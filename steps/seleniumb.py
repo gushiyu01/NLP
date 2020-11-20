@@ -62,12 +62,16 @@ username = driver.find_element_by_name('Login_phone')
 password = driver.find_element_by_name('pwd')
 captcha = driver.find_element_by_name('captcha')
 click = driver.find_element_by_id('showTooltips')
-username.send_keys('15893732872')
-password.send_keys('gu123456')
+username.send_keys('13523511140')
+password.send_keys('123456')
 captcha.send_keys(code)
 click.click()
 driver.get_cookies()
 print(driver.get_cookies())
-# 退出
+退出
 driver.close()
-
+coo = [{'domain': '.dmohe.com', 'httpOnly': False, 'name': 'Hm_lpvt_1f4615ff33183230f77694fcb34175ad', 'path': '/', 'secure': False, 'value': '1605757504'}, {'domain': '.vip.dmohe.com', 'expiry': 1637293503, 'httpOnly': False, 'name': 'openid', 'path': '/', 'secure': False, 'value': 'p516056794757577491'}, {'domain': '.dmohe.com', 'expiry': 1637293504, 'httpOnly': False, 'name': 'Hm_lvt_1f4615ff33183230f77694fcb34175ad', 'path': '/', 'secure': False, 'value': '1605757502'}, {'domain': 'vip.dmohe.com', 'httpOnly': False, 'name': 'PHPSESSID', 'path': '/', 'secure': False, 'value': 'tjts3dsniitc2bfmqt1ovo6jg8'}]
+cookies = {}
+for co in coo:
+    cookies.setdefault(co.get('name'), co.get('value'))
+print(cookies)

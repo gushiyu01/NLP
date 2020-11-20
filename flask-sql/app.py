@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy  # 导入 SQLAlachamy
 from sqlalchemy import *
+from .allclass import Students
 """
 sqlalchemy模块内置的查询条件
 and_(): 并且
@@ -19,24 +20,6 @@ app.config['SQLALCHEMY_ECHO'] = False
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 
 db = SQLAlchemy(app)  # 初始化应用
-
-
-# 学生
-class Students(db.Model):
-    # 定义表名
-    __tablename__ = 'students'
-    # 定义字段
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(16))
-    stu_number = db.Column(db.String(32), unique=True)
-
-    # repr()方法显示一个可读字符串,实例返回的内容
-    def __repr__(self):
-        return '<User: %s %s %s>' % (self.name, self.id, self.stu_number)
-
-    def __init__(self, name, stu_number):
-        self.name = name
-        self.stu_number = stu_number
 
 
 def create_table():
