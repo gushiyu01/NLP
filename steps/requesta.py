@@ -18,7 +18,7 @@ c_file = open('./cookie.json', 'r', encoding='utf-8')
 for line in c_file.readlines():
     dic = eval(line)
     print(dic['name'])
-    if dic['name'] is 'gushiyu':
+    if dic['name'] is 'guchenyang':
         print(11)
         # cookies = dic['value']
         # print(cookies)
@@ -27,7 +27,7 @@ for line in c_file.readlines():
 c_file.close()
 
 data = {
-    'step': '65445'
+    'step': '19638'
 }
 
 get = requests.post(url=utl, data=data, cookies=cookies)

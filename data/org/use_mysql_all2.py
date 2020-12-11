@@ -64,7 +64,7 @@ def limit_offset_query():
         if len(result_list) > 0:
             print('获取%s到%s数据成功' % (start, start + batch_size))
 
-            entity_file = open('./data/entity_event_full_test.json', 'a+', encoding='utf-8')
+            entity_file = open('./data/entity_org_full_test.json', 'a+', encoding='utf-8')
 
             for row in result_list:
 

@@ -17,6 +17,23 @@ cursor = conn.cursor()
 batch_size = 10000
 
 
+def get_twitter_id_by_twitter_name():
+    """
+    查询全部twitter_name的twitter_id
+    :return:
+    """
+    sql = "SELECT a.twitter_username,b.tw_id FROM ((SELECT twitter_username FROM wiki_org_id ) a LEFT  JOIN t_twitter_info b ON a.twitter_username = b.sname) WHERE twitter_username IS NOT NULL AND tw_id IS NOT NULL"
+    cursor.execute(sql)
+    rst = cursor.fetchall()
+    if rst is None:
+        return []
+
+    result = {}
+    for item in rst:
+        result[item[0]] = str(item[1])
+    return result
+
+
 def get_total_wiki_id():
     """
     分页查询全部wiki_id
@@ -99,6 +116,7 @@ def limit_offset_query():
     # 开始时间
     start_time = time.time()
     all_wiki_ids = get_total_wiki_id()
+    tw_ids = get_twitter_id_by_twitter_name()
     for i in range(int(total_page) + 1):# 遍历每一页
         # 起始位置
         start = batch_size * i
@@ -106,12 +124,13 @@ def limit_offset_query():
         result_list = get_tweet_by_page(start, batch_size)
         if (len(result_list) > 0):
             print('获取%s到%s数据成功' % (start, start + batch_size))
-            entity_file = open('./entity_entity_test.json', 'a+', encoding='utf-8')
-            no_deatil = open('./entity_entity_no_detail.json', 'a+', encoding='utf-8')
+            entity_file = open('./data/entity_entity_test.json', 'a+', encoding='utf-8')
+            no_detail = open('./data/entity_entity_no_detail.json', 'a+', encoding='utf-8')
+            no_tw_id = open('./data/entity_entity_no_tw_id.json', 'a+', encoding='utf-8')
 
             for row in result_list:
                 # residence P551    residence   居住地 row[6]
-                if row[6] != None :
+                if row[6] is not None:
                     dic = get_dict()
                     dic['Head_id'] = row[0]
                     dic['Tail'] = row[6]
@@ -121,7 +140,7 @@ def limit_offset_query():
                     json.dump(dic, entity_file, ensure_ascii=False)
                     entity_file.write('\n')
                 # current_official_position P39 current official position   现任官职    row[9]
-                if row[9] != None :
+                if row[9] is not None:
                     dic = get_dict()
                     dic['Head_id'] = row[0]
                     dic['Tail'] = row[9]
@@ -131,7 +150,7 @@ def limit_offset_query():
                     json.dump(dic, entity_file, ensure_ascii=False)
                     entity_file.write('\n')
                 # religion  P140    religion    宗教信仰    row[17]
-                if row[17] != None :
+                if row[17] is not None:
                     dic = get_dict()
                     dic['Head_id'] = row[0]
                     dic['Tail'] = row[17]
@@ -141,7 +160,7 @@ def limit_offset_query():
                     json.dump(dic, entity_file, ensure_ascii=False)
                     entity_file.write('\n')
                 # father    P22 father  父亲  row[18]
-                if row[18] != None :
+                if row[18] is not None:
                     if row[18] in all_wiki_ids:
                         dic = get_dict()
                         dic['Head_id'] = row[0]
@@ -152,10 +171,10 @@ def limit_offset_query():
                         json.dump(dic, entity_file, ensure_ascii=False)
                         entity_file.write('\n')
                     else:
-                        no_deatil.write(row[18] + ':not in list father')
-                        no_deatil.write('\n')
+                        no_detail.write(row[18] + ':not in list father')
+                        no_detail.write('\n')
                 # mother    P25 mother  母亲  row[19]
-                if row[19] != None :
+                if row[19] is not None:
                     if row[19] in all_wiki_ids:
                         dic = get_dict()
                         dic['Head_id'] = row[0]
@@ -166,11 +185,11 @@ def limit_offset_query():
                         json.dump(dic, entity_file, ensure_ascii=False)
                         entity_file.write('\n')
                     else:
-                        no_deatil.write(row[19] + ':not in list mother')
-                        no_deatil.write('\n')
+                        no_detail.write(row[19] + ':not in list mother')
+                        no_detail.write('\n')
                 # spouse 20
                 # children  P40 child   子女  row[21]
-                if row[21] != None :
+                if row[21] is not None:
                     for item in eval(row[21]):
                         if item in all_wiki_ids:
                             dic = get_dict()
@@ -182,10 +201,10 @@ def limit_offset_query():
                             json.dump(dic, entity_file, ensure_ascii=False)
                             entity_file.write('\n')
                         else:
-                            no_deatil.write(item + ':not in list child')
-                            no_deatil.write('\n')
+                            no_detail.write(item + ':not in list child')
+                            no_detail.write('\n')
                 # sibling   P3373   sibling 兄弟姐妹    row[22]
-                if row[22] != None :
+                if row[22] is not None:
                     for item in eval(row[22]):
                         if item in all_wiki_ids:
                             dic = get_dict()
@@ -197,10 +216,10 @@ def limit_offset_query():
                             json.dump(dic, entity_file, ensure_ascii=False)
                             entity_file.write('\n')
                         else:
-                            no_deatil.write(item + ':not in list sibling')
-                            no_deatil.write('\n')
+                            no_detail.write(item + ':not in list sibling')
+                            no_detail.write('\n')
                 # academic_degree   P512    academic degree 学位  row[25]
-                if row[25] != None :
+                if row[25] is not None:
                     dic = get_dict()
                     dic['Head_id'] = row[0]
                     dic['Tail'] = row[25]
@@ -210,7 +229,7 @@ def limit_offset_query():
                     json.dump(dic, entity_file, ensure_ascii=False)
                     entity_file.write('\n')
                 # member_of P463    member of   所属组织    row[26]
-                if row[26] != None :
+                if row[26] is not None:
                     dic = get_dict()
                     dic['Head_id'] = row[0]
                     dic['Tail'] = row[26]
@@ -220,7 +239,7 @@ def limit_offset_query():
                     json.dump(dic, entity_file, ensure_ascii=False)
                     entity_file.write('\n')
                 # employer  P108    employer    雇主  row[27]
-                if row[27] != None :
+                if row[27] is not None:
                     dic = get_dict()
                     dic['Head_id'] = row[0]
                     dic['Tail'] = row[27]
@@ -229,6 +248,20 @@ def limit_offset_query():
                     dic['type'] = 'employer'
                     json.dump(dic, entity_file, ensure_ascii=False)
                     entity_file.write('\n')
+                # P2002	Twitter username	twitter账号 36
+                if row[36] is not None:
+                    if tw_ids.get(row[36]) is not None:
+                        dic = get_dict()
+                        dic['Head_id'] = row[0]
+                        dic['Tail'] = row[36]
+                        dic['id'] = ''.join(str(uuid.uuid4()).split('-'))
+                        dic['relation_id'] = 'P2002'
+                        dic['type'] = 'Twitter username'
+                        json.dump(dic, entity_file, ensure_ascii=False)
+                        entity_file.write('\n')
+                    else:
+                        no_tw_id.write(row[36] + ':no twitter id')
+                        no_tw_id.write('\n')
             print('over')
             entity_file.close()
     print("耗时：", time.time() - start_time)

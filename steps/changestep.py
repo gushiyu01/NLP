@@ -87,15 +87,18 @@ def do_it(steps, username, password):
         return '运行出错，原因：' + e
 
 
-@app.route('/changeStep')
-def index():
-    steps = request.args['steps']
-    username = request.args['username']
-    password = request.args['password']
-    return do_it(steps, username, password)
+# @app.route('/changeStep')
+# def index():
+#     steps = request.args['steps']
+#     username = request.args['username']
+#     password = request.args['password']
+#     return do_it(steps, username, password)
 
 #
 # if __name__ == '__main__':
 #     app.run(port=8888, host='0.0.0.0')
-do_it(69981, '13523511140', '123456')
+
+
+print(do_it(59838, '13523511140', '123456'))
+# print(do_it(29838, '15893732872', 'gu123456'))
 
