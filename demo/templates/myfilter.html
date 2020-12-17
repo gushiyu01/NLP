@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>
+        电话号码是：{{ phone }}, 长度为：{{ phone | mylen }}，运营商号：{{ phone | interval(0,3) }}
+    </h1>
+</body>
+</html>

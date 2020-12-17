@@ -10,9 +10,9 @@ for i in range(10):
         "_index": 'gsy',
         "_type": "_doc",
         "_id": i,
-        "_op_type": 'update',
-        "doc": {
-            "emotion": i*i
+
+        "_source": {
+            "s": i*i
         },
     }
     actions.append(action)

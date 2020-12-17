@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--过滤器
+过滤器	说明
+safe	渲染是不转义
+capitalize	首字母大写
+lower	所有字母小写
+upper	所有字母大写
+title	值中每个单词首字母大写
+trim	删除首位空白字符
+striptags	渲染时删除掉值中所有HTML标签
+列表过滤器 min, max, 得到列表中的最小值或最大值
+default，可以当变量未定义时，提供默认值，
+| default('world')
+-->
+    <h1>hello Flask {{sex | min}}</h1>
+    {% for i in sex %}
+        <h2>{{ i }}</h2>
+    {% endfor %}
+</body>
+</html>
