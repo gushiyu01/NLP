@@ -1,0 +1,4 @@
+Flask==1.0.3
+requests==2.23.0
+Bootstrap_Flask==1.5
+flask_bootstrap==3.3.7.1
