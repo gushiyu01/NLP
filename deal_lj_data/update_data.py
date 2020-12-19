@@ -1,10 +1,8 @@
-from pymongo import MongoClient
 from mysql_config import get_mysql_connection_cursor
-from decimal import Decimal
 from es_config import bulk_insert
 
 
-batch_size = 1000
+batch_size = 10000
 
 
 def get_all_count(doc_type):
@@ -34,7 +32,7 @@ def get_data_by_page(page_num, page_size, doc_type):
     return rows
 
 
-def get_data(doc_type, indexName):
+def get_data(doc_type):
 
     # 数据总量
     total_count = get_all_count(doc_type)
@@ -53,29 +51,13 @@ def get_data(doc_type, indexName):
         result_list = get_data_by_page(start, batch_size, doc_type)
         for tt in result_list:
             try:
-                # print(tt)
-                if tt[0] is None or tt[0] is '':
-                    continue
-                # `doc_id`, `attitude_index`, `sentiment`, `heat`
-                action = {
-                    "_index": indexName,
-                    "_type": '_doc',
-                    "_id": tt[0],
-                    "_op_type": 'update',
-                    "doc": {
-                        "attitudeIndex": tt[1],
-                        "emotionalTendency": tt[2],
-                        "heatDegree": tt[3],
-                    },
-                }
-                lists.append(action)
+                print(tt)
+                print(Decimal(tt[1]))
+                print(Decimal(tt[3]))
             except Exception as e:
                 print(e)
                 continue
-
-        insert = bulk_insert(lists)
-        print(insert)
     print('over')
 
 
-get_data('tw', 'wde_mtw_temp')
+get_data('tw')

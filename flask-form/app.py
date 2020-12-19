@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField
 from wtforms.validators import DataRequired
 from flask import Flask, render_template, redirect
+from changestep import do_it
 
 app = Flask(__name__)  # 创建一个 Flask 应用
 app.secret_key = 'abc'

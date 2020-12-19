@@ -97,8 +97,8 @@ def do_it(steps, username, password):
 #
 # if __name__ == '__main__':
 #     app.run(port=8888, host='0.0.0.0')
-import random
+# import random
 
 # print(do_it(int(random.random() * 10000) + 50000, '13523511140', '123456'))
-print(do_it(int(random.random() * 10000) + 10000, '15893732872', 'gu123456'))
+# print(do_it(int(random.random() * 10000) + 10000, '15893732872', 'gu123456'))
 

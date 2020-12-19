@@ -22,7 +22,7 @@ def get_data_by_page(page_num, page_size, doc_type):
     cursor = get_mysql_connection_cursor()
     sql = 'select `doc_id`, `attitude_index`, `sentiment`, `heat` ' \
           'from `t_index_article` ' \
-          'where `doc_type` = %(doc_type)s ' \
+          'where `pt` > "2020-12-09 23:49:03" and `doc_type` = %(doc_type)s ' \
           'limit %(page_num)s, %(page_size)s '
     p = {
         "page_num": page_num,

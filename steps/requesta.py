@@ -18,7 +18,7 @@ c_file = open('./cookie.json', 'r', encoding='utf-8')
 for line in c_file.readlines():
     dic = eval(line)
     print(dic['name'])
-    if dic['name'] is 'guchenyang':
+    if dic['name'] is 'gushiyu':
         print(11)
         # cookies = dic['value']
         # print(cookies)
