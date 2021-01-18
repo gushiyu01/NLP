@@ -8,28 +8,27 @@ actions = []
 
 for i in range(10):
     action = {
-        "_index": 'gsy',
+        "_index": 'wde_mtw_temp',
         "_type": "_doc",
         "_id": i,
 
         "_source": {
-            "s": i*i
+            "hashTagList": [str(i), str(i*i)]
         },
     }
     actions.append(action)
 bulk_insert(actions)
-# actions = []
-#
-# for i in range(10):
-#     action = {
-#         "_index": 'gsy',
-#         "_type": "_doc",
-#         "_id": i,
-#         "_op_type": 'update',
-#         "doc": {
-#             "emotion": i*i
-#         },
-#     }
-#     actions.append(action)
-# bulk_insert(actions)
-print(int(int(1579407050000)/1000))
+actions = []
+
+for i in range(10):
+    action = {
+        "_index": 'test',
+        "_type": "_doc",
+        "_id": i,
+        "_op_type": 'update',
+        "doc": {
+            "username": "[1, 2, 3]"
+        },
+    }
+    actions.append(action)
+bulk_insert(actions)
